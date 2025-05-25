@@ -1,8 +1,11 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
-import NewsStackNavigator from "./NewsStackNavigator";
+
+// packages
 import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+// navigator
+import { HomeStackNavigator, NewsStackNavigator } from "./StackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +29,7 @@ export default function BottomTabNavigator() {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="News" component={NewsStackNavigator} />
     </Tab.Navigator>
   );

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Crypto } from "../types/crypto";
+import type { Crypto } from "../types";
 
 export async function fetchCryptos(): Promise<Crypto[]> {
   const response = await axios.get<Crypto[]>(

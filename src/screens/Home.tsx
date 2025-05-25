@@ -3,15 +3,18 @@ import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
-  StyleSheet,
   Text,
-  View,
+  View
 } from "react-native";
+
+// others
 import CryptoCard from "../components/CryptoCard";
 import { fetchCryptos } from "../services/cryptoApi";
-import { Crypto } from "../types/crypto";
+import { Crypto } from "../types";
+import { HomeStyles } from "../styles/screens";
 
 export default function Home() {
+  // local state
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,48 +35,24 @@ export default function Home() {
 
   if (loading) {
     return (
-      <View style={styles.centered}>
+      <View style={HomeStyles.centered}>
         <ActivityIndicator size="large" color="#1e40af" />
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Crypto Portfolio Tracker</Text>
+    <SafeAreaView style={HomeStyles.container}>
+      <Text style={HomeStyles.title}>Crypto Portfolio Tracker</Text>
 
       <FlatList
         data={cryptos}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <CryptoCard crypto={item} />}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <View style={HomeStyles.separator} />}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f0f4f8",
-    paddingHorizontal: 16,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#1e40af",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  separator: {
-    height: 12,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

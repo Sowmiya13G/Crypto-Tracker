@@ -28,3 +28,21 @@ export type NewsDetailScreenProps = NativeStackScreenProps<
   NewsStackParamList,
   "NewsDetail"
 >;
+
+export type HomeStackParamList = {
+  HomeScreen: undefined;
+  CryptoDetail: { crypto: Crypto };
+};
+
+export interface CryptoCardProps {
+  crypto: Crypto;
+}
+
+export interface PriceChartProps {
+  prices: number[];
+  labels?: string[];
+}
+
+export type CryptoRouteParams = {
+  crypto: Crypto;
+};

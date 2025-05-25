@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { NewsItem } from "../types/crypto";
+import type { NewsItem } from "../types";
 
 const API_KEY = "fe76ba5083e941b2a73d4ccf1f7c8862";
 

@@ -1,59 +1,31 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import type { Crypto } from "../types/crypto";
+import { Text, TouchableOpacity } from "react-native";
 
-interface Props {
-  crypto: Crypto;
-}
+// package
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-export default function CryptoCard({ crypto }: Props) {
+// others
+import { cyptoCardStyles } from "../styles/components";
+import type { CryptoCardProps, HomeStackParamList } from "../types";
+
+export default function CryptoCard({ crypto }: CryptoCardProps) {
   const isPositive = crypto.price_change_percentage_24h >= 0;
+  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.name}>
+    <TouchableOpacity
+      style={cyptoCardStyles.card}
+      onPress={() => navigation.navigate("CryptoDetail", { crypto })}
+    >
+      <Text style={cyptoCardStyles.name}>
         {crypto.name} ({crypto.symbol.toUpperCase()})
       </Text>
-      <Text style={styles.price}>${crypto.current_price.toFixed(2)}</Text>
+      <Text style={cyptoCardStyles.price}>${crypto.current_price.toFixed(2)}</Text>
       <Text
-        style={[styles.change, isPositive ? styles.positive : styles.negative]}
+        style={[cyptoCardStyles.change, isPositive ? cyptoCardStyles.positive : cyptoCardStyles.negative]}
       >
         {crypto.price_change_percentage_24h.toFixed(2)}%
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 8,
-    elevation: 2, // Android shadow
-    shadowColor: "#000", // iOS shadow
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 4,
-    color: "#0f172a",
-  },
-  price: {
-    fontSize: 16,
-    color: "#334155",
-  },
-  change: {
-    marginTop: 4,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  positive: {
-    color: "#16a34a", // green
-  },
-  negative: {
-    color: "#dc2626", // red
-  },
-});
